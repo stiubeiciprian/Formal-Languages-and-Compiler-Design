@@ -1,24 +1,35 @@
-program ::= decllist  cmpdstmt
-decllist ::= declaration | declaration ";" decllist
-declaration ::= type " " identifier
-type1 ::= "int" | "char" | "string" | "bool"
-arraydecl ::= type1 "[" nr "]"
-type  ::= type1|arraydecl
+program = statementList
+statementList = statement | statement "newLine" statementList
 
-cmpdstmt ::= "BEGIN" stmtlist "END"
-stmtlist ::= stmt | stmt ";" stmtlist
-stmt ::= simplstmt | structstmt
-simplstmt ::= assignstmt | iostmt
-assignstmt ::= IDENTIFIER ":=" expression
-expression ::= expression "+" term | term
-term ::= term "*" factor | factor
-factor ::= "(" expression ")" | IDENTIFIER
+statement = simpleStatement | structStatement
+compoundStatement = "tab" statement | "newLine" compoundStatement
 
-iostmt ::= "READ" | "WRITE" "(" IDENTIFIER ")"
-structstmt ::= cmpdstmt | ifstmt | whilestmt
-ifstmt ::= "if" condition ":" stmt ["else:" stmt] | 
-whilestmt ::= "while" condition ":" stmt
+simpleStatement = variableDeclarationStatement | assignmentStatement | printStatement | readStatement
+variableDeclarationStatement = type identifier { "=" expression }
+assignmentStatement = identifier "=" expression
+printStatement = "print(" (identifier|constant|expression) ")" 
+readStatement = "input(" constant ")"
 
-condition ::= expression RELATION expression
-RELATION ::= "<" | "<=" | "==" | "!=" | ">=" | ">"
+basicType = "int" | "char" | "string" | "bool"
+arrayType = basicType "[" nr "]"
+type  = basicType | arrayType
+
+
+expression = arithmeticExpression | logicExpression | relationalExpression
+condition = logicExpression | relationalExpression | identifier | "True" | "False"
+
+arithmeticExpression = arithmeticExpression ("+" | "-") term | term
+term = term ("*" | "/") factor | factor
+factor = "(" arithmeticExpression ")" | identifier
+
+logicExpression = expression ("or" | "and") expression
+relationalExpression = arithmeticExpression relation arithmeticExpression
+relation = "<" | "<=" | "==" | "!=" | ">=" | ">"
+
+structStatement = compoundStatement | ifStatement | whileStatement | forStatement
+ifStatement = "if" condition ":" statement ["else:" statement] | 
+whileStatement = "while" condition ":" statement
+forStatement = "for" (variableDeclarationStatement | assignmentStatement) "," condition "," assignmentStatement ":" statement
+
+
 
