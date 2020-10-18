@@ -11,21 +11,20 @@ a. Special symbols, representing:
 
 b. Identifiers - a sequence of letters and digits, such that the first character is a letter; the rule is:
 identifier ::= letter | letter{letter}{digit}
-letter ::= "A" | "B" | ... | "Z"
+letter ::= "a" | ... | "z" | "A" | "B" | ... | "Z" | "_"
 digit ::= "0" | "1" | ... | "9"
 nonzerodigit ::= "1" | ... | "9"
 
 c. Constants
 1.int:
-      noconst := "+"no|"-"no|no
-      no := nonzerodigit{no}
+      int := ["+"|"-"] nonzerodigit{digit}| "0"
 
 2.char
-    char:='letter'|'digit'
+    char:= 'letter'|'digit'
 
 3.string
       constchar := "string"
-      string := char{string}
+      string := char{string|char}
       char := letter|digit
 
 
