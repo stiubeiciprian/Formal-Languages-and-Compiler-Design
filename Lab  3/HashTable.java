@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.lang.Math;
 
 public class HashTable<K, V> {
     private ArrayList<Node<K, V>> table;
@@ -24,7 +25,7 @@ public class HashTable<K, V> {
      * @param key
      */
     private int position(K key) {
-        int hashCode = key.hashCode();
+        int hashCode = Math.abs(key.hashCode());
         return hashCode % capacity;
     }
 
@@ -87,11 +88,8 @@ public class HashTable<K, V> {
         return false;
     }
 
+
     public int getCurrentSize() {
         return currentSize;
-    }
-
-    public void setCurrentSize(int currentSize) {
-        this.currentSize = currentSize;
     }
 }

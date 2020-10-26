@@ -22,8 +22,6 @@ public class SymbolTable {
      */
     public Integer add(String token) {
         Integer position = hashTable.getCurrentSize() + 1;
-        hashTable.setCurrentSize(position);
-
         hashTable.add(token, position);
         return position;
     }
