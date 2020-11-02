@@ -104,11 +104,12 @@ public class Scanner {
         Queue<String> tokens = new LinkedList<>();
 
 //      [\'][^\']*[\']|["][^"]*["]    match string/char sequence
+//      [\s,;:()\[\]]                 matches separators
+//      \+\+|--|>=|==|<=|!=           matches double character operators
 //      [0-9a-zA-Z_]+                 match alphabet sqeuence
 //      (?<=[A-Za-z0-9])\s*+[+-]      match +/- operator, matches if identifier/constant number precedes it
 //      [+-]?[1-9]{1}[0-9]*           match constant numbers
-//      \+\+|--|>=|==|<=|!=|0         matches double character operators and constant 0
-//      [\s,;:()\[\]]|[+\-*\/%=<>]     matches separators and single character operators
+//      [+\-*\/%=<>]                  matches single character operators
 //      .+                            matches any other sequence of characters
         String regex = "[\\'][^\\']*[\\']|[\"][^\"]*[\"]|[\\s,;:()\\[\\]]|\\+\\+|--|>=|==|<=|!=|[0-9a-zA-Z_]+|(?<=[A-Za-z0-9 ])[+-]|[+-]?[1-9]{1}[0-9]*|[+\\-*\\/%=<>]|.+";
         Pattern pattern = Pattern.compile(regex);
