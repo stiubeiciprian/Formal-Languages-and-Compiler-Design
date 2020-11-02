@@ -6,6 +6,9 @@ import java.util.regex.Pattern;
 
 
 public class Scanner {
+
+    public static final String code_for_identifiers = "0";
+    public static final String code_for_constants = "1";
     private PIF pif;
     private SymbolTable symbolTable;
     private String filename;
@@ -69,11 +72,13 @@ public class Scanner {
                 } else {
                     if (isIdentifier(token)) {
                         int index = symbolTable.pos(token);
-                        pif.add(token, index);
+                        pif.add(code_for_identifiers, index);
                     } else {
                         if(isConstant(token)) {
-                            pif.add(token, 0);
+                            int index = symbolTable.pos(token);
+                            pif.add(code_for_constants, index);
                         } else {
+
                             token = token.equals("\t") ? "TAB" : token;
                             token = token.equals(" ") ? "SPC" : token;
                             System.out.println("Lexical error found at line " + lineIndex + ": " + token );
@@ -161,7 +166,7 @@ public class Scanner {
     /**
      * Returns {@code true} if {@param token} is an identifier.
      * An identifier is formed using letters (lowercase and uppercase), digits and '_' (underscore).
-     * But it's first character must be a letter or '_' (underscore).
+     *      * But it's first character must be a letter or '_' (underscore).
      *
      * @param token
      *        the token to be checked

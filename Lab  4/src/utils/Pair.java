@@ -27,6 +27,6 @@ public class Pair<K,V> {
 
     @Override
     public String toString() {
-        return value + "\t|" + key;
+        return key + "\t|" + value;
     }
 }
