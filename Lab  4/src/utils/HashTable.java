@@ -90,8 +90,25 @@ public class HashTable<K, V> {
         return false;
     }
 
-
+    /**
+     * Returns the size of the hash table.
+     * @return size of collection
+     */
     public int getCurrentSize() {
         return currentSize;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+
+        for ( Node<K, V> node: table) {
+            while (node != null) {
+                s.append(node.getValue()).append("\t|").append(node.getKey()).append("\n");
+                node = node.getNextNode();
+            }
+        }
+
+        return s.toString();
     }
 }

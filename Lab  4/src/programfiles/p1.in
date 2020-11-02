@@ -1,0 +1,10 @@
+int a = input()
+int b = input()
+int c = input()
+
+if a <= b and a <= c:
+    print("min=", a)
+elif b <= c and b <= a:
+    print("min=", b)
+else:
+    print("min=", c)
