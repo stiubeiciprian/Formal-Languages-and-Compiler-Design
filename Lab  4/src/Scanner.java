@@ -108,9 +108,9 @@ public class Scanner {
 //      (?<=[A-Za-z0-9])\s*+[+-]      match +/- operator, matches if identifier/constant number precedes it
 //      [+-]?[1-9]{1}[0-9]*           match constant numbers
 //      \+\+|--|>=|==|<=|!=|0         matches double character operators and constant 0
-//      [\s,;:()\[\]]|[+\-*\/=<>]     matches separators and single character operators
+//      [\s,;:()\[\]]|[+\-*\/%=<>]     matches separators and single character operators
 //      .+                            matches any other sequence of characters
-        String regex = "[\\'][^\\']*[\\']|[\"][^\"]*[\"]|[0-9a-zA-Z_]+|(?<=[A-Za-z0-9])\\s*+[+-]|[+-]?[1-9]{1}[0-9]*|\\+\\+|--|>=|==|<=|!=|0|[\\s,;:()\\[\\]]|[+\\-*\\/=<>]|.+";
+        String regex = "[\\'][^\\']*[\\']|[\"][^\"]*[\"]|[\\s,;:()\\[\\]]|\\+\\+|--|>=|==|<=|!=|[0-9a-zA-Z_]+|(?<=[A-Za-z0-9 ])[+-]|[+-]?[1-9]{1}[0-9]*|[+\\-*\\/%=<>]|.+";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(line);
 
@@ -142,7 +142,7 @@ public class Scanner {
      * @return {@code true} if {@param token} is a separator
      */
     private boolean isOperator(String token) {
-        return token.matches("^[!=<>]=$|^\\+\\+$|^\\-\\-$|^[\\+\\-*\\/=<>]$|^and$|^or$|^not$");
+        return token.matches("^[!=<>]=$|^\\+\\+$|^\\-\\-$|^[\\+\\-*\\/%=<>]$|^and$|^or$|^not$");
     }
 
     /**
