@@ -1,0 +1,50 @@
+%{
+#include <math.h> 
+#include "gython.tab.h"
+%} 
+
+%option noyywrap
+%option caseless
+
+NONZERODIGIT	[1-9]
+DIGIT			[0-9] 
+CHAR			'[0-9a-zA-Z_]'
+STRING			\"[0-9a-zA-Z_]+\"
+IDENTIFIER		[a-zA-Z_][A-Za-z0-9_]* 
+SEPARATOR		[:,;\(\)\{\}\[\]]
+
+%% 
+
+{SEPARATOR}							{ return yytext[0]; }
+[+|-]?{NONZERODIGIT}{DIGIT}*|0 		{ yylval.p_val = yytext; return CONST_INT; } 
+{CHAR}								{ yylval.p_val = yytext; return CONST_CHAR; }
+{STRING}							{ return CONST_STR; }
+int									{ return INT; }
+char								{ return CHAR; }
+string								{ return STRING; }
+bool								{ return BOOL; }
+if									{ return IF; }
+else								{ return ELSE; }
+elif								{ return ELIF; }
+input								{ return INPUT; }
+print								{ return PRINT; }
+while								{ return WHILE; }
+for									{ return FOR; }
+and									{ return AND; }
+or									{ return OR; }
+not									{ return NOT; }
+{IDENTIFIER}						{ return ID; }
+"+"									{ return PLUS; }
+"-"									{ return MINUS; }			
+"*"									{ return TIMES; }
+"/"									{ return DIVIDE; }
+"<"									{ return L; }
+"="									{ return ASSIGN; }
+">"									{ return G; }
+"=="								{ return EQUAL; }
+"<="								{ return LE; }
+">="								{ return GE; }
+"!="								{ return NOTEQUAL; }
+[ \t\n]+							/* eat up whitespace */ 
+
+%% 
